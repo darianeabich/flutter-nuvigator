@@ -2,16 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:proj/components/orgs_drawer.dart';
 import 'package:proj/components/orgs_stores_card.dart';
 import 'package:proj/core/app_colors.dart';
-import 'package:proj/core/app_images.dart';
 import 'package:proj/models/producer_model.dart';
 import 'package:proj/repository/data.dart';
-import 'package:proj/screens/producer_details_screen.dart';
+
 
 class FavoritesScreen extends StatelessWidget {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
+  final onProducerClick;
+
+  FavoritesScreen({this.onProducerClick});
+
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       key: _scaffoldKey,
       drawer: OrgsDrawer(),
@@ -85,10 +89,11 @@ class FavoritesScreen extends StatelessWidget {
       final prod = Producer.fromJson(producers[producer]);
 
       children.add(OrgsStoresCard(
-        action: () => Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => ProducerDetailsScreen(producer: prod)),
-        ),
+        action: () => onProducerClick({"producer": prod}),
+        // Navigator.push(
+        //   context,
+        //   MaterialPageRoute(builder: (context) => ProducerDetailsScreen(producer: prod)),
+        // ),
         img: prod.logo,
         distance: prod.distance,
         title: prod.name,

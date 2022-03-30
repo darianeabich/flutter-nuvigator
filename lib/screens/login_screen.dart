@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:proj/core/app_colors.dart';
 import 'package:proj/core/app_images.dart';
-import 'package:proj/screens/home_screen.dart';
-import 'package:proj/screens/singup_screen.dart';
 
 class LoginScreen extends StatelessWidget {
+
+  final onSingUpClick;
+  final onHomeClick;
+
+  LoginScreen({this.onHomeClick, this.onSingUpClick});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -60,10 +64,11 @@ class LoginScreen extends StatelessWidget {
                     width: double.infinity
                 ),
                 child: ElevatedButton(
-                  onPressed: () =>Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => HomeScreen()),
-                  ),
+                  onPressed: () => onHomeClick, 
+                  // Navigator.push(
+                  //   context,
+                  //   MaterialPageRoute(builder: (context) => HomeScreen()),
+                  // ),
                   style: ElevatedButton.styleFrom(
                     primary: AppColors.green, // background
                     onPrimary: Colors.white, // foreground
@@ -79,13 +84,7 @@ class LoginScreen extends StatelessWidget {
                 vertical: 10,
               ),
               child: GestureDetector(
-                onTap: () async {
-                   Navigator.pushAndRemoveUntil(
-                    context,
-                    MaterialPageRoute(builder: (context) => SingupScreen()),
-                    (route) => false
-                  );
-                },
+                onTap: ()  => onSingUpClick,
                 child: Container(
                   width: double.maxFinite,
                   padding: const EdgeInsets.all(8),
